@@ -1,0 +1,18 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/dbChangelog.xml
+    drop-first: false
+  datasource:
+    url: jdbc:postgresql://ec2-3-209-124-113.compute-1.amazonaws.com:5432/dfcj7i3g601tqk
+    username: qrdvuwroxstnar
+    password: 5c6f824ab9cbf6fa02446db515321aa5245231da71b97db9bc7a25d3ec0be456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+app:
+  jwtSecret: JWTSecretKey
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
