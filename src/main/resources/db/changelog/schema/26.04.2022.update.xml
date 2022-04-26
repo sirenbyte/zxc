@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="abzal (generated)" id="1649584116631-2">
+        <createSequence incrementBy="1" sequenceName="image_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="2312" author="Abzal">
+        <createTable tableName="image">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="imagePK"/>
+            </column>
+            <column name="url" type="VARCHAR(255)"/>
+            <column name="cover" type="VARCHAR(255)"/>
+            <column name="playground_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="abzal (generated)" id="164314116631-39">
+        <addForeignKeyConstraint baseColumnNames="playground_id" baseTableName="image"
+                                 constraintName="FK1h4c9kvrevxcvxcf2" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="playground"
+                                 validate="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>
