@@ -75,6 +75,7 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         dto.setPrice(playground.getPrice());
         dto.setCompanyId(playground.getCompanyId());
         dto.setSportId(playground.getSportId());
+        dto.setSpecification(specificationService.findOrThrowNotFound(playground.getSpecificationId()));
         dto.setImages(imageService.getImagesById(playground.getId()).stream().map(Image::getUrl).collect(Collectors.toList()));
         return dto;
 

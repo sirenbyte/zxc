@@ -1,5 +1,6 @@
 package kz.mvp.keloyna.dto;
 
+import kz.mvp.keloyna.entity.Specification;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -26,4 +27,6 @@ public class PlaygroundDto {
     private Long sportId;
 
     private List<String> images;
+
+    private Specification specification;
 }
