@@ -28,7 +28,7 @@ public class UserController {
     @Scheduled(fixedRate = 1200000)
     public void loged() {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://keloyna.herokuapp.com/time";
+        String url = "https://keloyna.herokuapp.com/v1/api/user/time";
         restTemplate.exchange(url, HttpMethod.GET, null, String.class);
     }
 }
