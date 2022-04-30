@@ -1,11 +1,11 @@
 spring:
   liquibase:
     change-log: classpath:db/changelog/dbChangelog.xml
-    drop-first: false
+    drop-first: true
   datasource:
-    url: jdbc:postgresql://ec2-44-199-143-43.compute-1.amazonaws.com:5432/dfca4g4sge3l4f
-    username: aydaksvmsigcmz
-    password: 614e774c574406c63381f1874bcd990da5ccc92d825783ffcefb6147851b8468
+    url: jdbc:postgresql://ec2-52-71-69-66.compute-1.amazonaws.com:5432/dfus3sunb0nbme
+    username: ehhzadyssxutjk
+    password: 0daecc43be9961bb9aa42fd7cd7f9c47736b567dc4f2ce8213d25c38e657eb62
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
