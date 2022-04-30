@@ -3,6 +3,7 @@ package kz.mvp.keloyna.dto;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class PlaygroundDto {
@@ -23,4 +24,6 @@ public class PlaygroundDto {
     private Long companyId;
 
     private Long sportId;
+
+    private List<String> images;
 }

@@ -1,6 +1,7 @@
 package kz.mvp.keloyna.controller.admin;
 
 import io.swagger.annotations.Api;
+import kz.mvp.keloyna.dto.AdminPanelCompanyDto;
 import kz.mvp.keloyna.dto.ListDto;
 import kz.mvp.keloyna.service.api.PlaygroundService;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,11 @@ public class AdminController {
     public ResponseEntity<Void> disable(@RequestBody List<Long> list) {
         playgroundService.disable(list);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/playground/{id}")
+    public ResponseEntity<AdminPanelCompanyDto> getDetails(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(playgroundService.getDetails(id));
     }
 }
 

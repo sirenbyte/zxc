@@ -16,4 +16,6 @@ public class PlaygroundViewInListDto {
 
     private Double stars;
 
+    private String firstImage;
+
 }

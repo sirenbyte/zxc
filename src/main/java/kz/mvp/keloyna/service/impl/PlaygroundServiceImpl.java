@@ -5,13 +5,12 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import io.jsonwebtoken.lang.Strings;
 import kz.mvp.keloyna.dto.*;
-import kz.mvp.keloyna.entity.Playground;
-import kz.mvp.keloyna.entity.QComment;
-import kz.mvp.keloyna.entity.QPlayground;
-import kz.mvp.keloyna.entity.QSpecification;
+import kz.mvp.keloyna.entity.*;
 import kz.mvp.keloyna.repository.PlaygroundRepository;
 import kz.mvp.keloyna.service.api.CompanyService;
+import kz.mvp.keloyna.service.api.ImageService;
 import kz.mvp.keloyna.service.api.PlaygroundService;
+import kz.mvp.keloyna.service.api.SpecificationService;
 import kz.mvp.keloyna.service.base.BaseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,14 +21,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-;
-
 @Service
 @AllArgsConstructor
 public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, PlaygroundRepository> implements PlaygroundService {
 
     private final EntityManager entityManager;
     private final CompanyService companyService;
+    private final SpecificationService specificationService;
+    private final ImageService imageService;
+
 
     @Override
     public void savePlayground(PlaygroundDto dto) {
@@ -75,6 +75,7 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         dto.setPrice(playground.getPrice());
         dto.setCompanyId(playground.getCompanyId());
         dto.setSportId(playground.getSportId());
+        dto.setImages(imageService.getImagesById(playground.getId()).stream().map(Image::getUrl).collect(Collectors.toList()));
         return dto;
 
     }
@@ -84,8 +85,10 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         QPlayground qPlayground = QPlayground.playground;
         QSpecification qSpecification = qPlayground.specification;
         QComment qComment = QComment.comment;
+        QImage qImage = QImage.image;
         BooleanBuilder whereBuilder = new BooleanBuilder();
         JPAQuery<PlaygroundViewInListDto> jpaQuery = new JPAQuery<>(entityManager);
+        JPAQuery<PlaygroundViewInListDto> jpaQuery2 = new JPAQuery<>(entityManager);
         Optional.ofNullable(dto.getSportId()).filter(it -> it != 0).ifPresent(it -> whereBuilder.and(qPlayground.sportId.eq(it)));
         Optional.ofNullable(dto.getRoofType()).filter(Strings::hasText).ifPresent(it -> whereBuilder.and(qSpecification.roofType.eq(it)));
         Optional.ofNullable(dto.getToPrice()).ifPresent(it -> whereBuilder.and(qPlayground.price.lt(it)));
@@ -102,6 +105,7 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
                         )
                 ).from(qPlayground).leftJoin(qComment).on(qPlayground.id.eq(qComment.playground.id))
                 .where(whereBuilder);
+
         return jpaQuery.fetch();
     }
 
@@ -120,5 +124,25 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         return getRepository().getByCreateDate().stream()
                 .map(it -> ListDto.builder().playgroundId(it.getId()).fio(companyService.findOrThrowNotFound(it.getCompanyId()).getCompanyName()).name(it.getPlaygroundName()).status("In process").build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public AdminPanelCompanyDto getDetails(Long id) {
+        Playground playground = findOrThrowNotFound(id);
+        Company company = companyService.findOrThrowNotFound(playground.getCompanyId());
+        Specification specification = specificationService.findOrThrowNotFound(playground.getSpecificationId());
+        AdminPanelCompanyDto dto = new AdminPanelCompanyDto();
+        dto.setCompanyName(company.getCompanyName());
+        dto.setEmail(company.getEmail());
+        dto.setCover(specification.getCover());
+        dto.setParking(specification.getParking());
+        dto.setRoofType(specification.getRoofType());
+        dto.setTribune(specification.getTribune());
+        dto.setDressingRoom(specification.getDressingRoom());
+        dto.setPlaygroundAddress(playground.getPlaygroundAddress());
+        dto.setPlaygroundName(playground.getPlaygroundName());
+        dto.setShower(specification.getShower());
+        return dto;
+
     }
 }

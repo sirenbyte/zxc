@@ -3,9 +3,9 @@ spring:
     change-log: classpath:db/changelog/dbChangelog.xml
     drop-first: false
   datasource:
-    url: jdbc:postgresql://ec2-3-209-124-113.compute-1.amazonaws.com:5432/dfcj7i3g601tqk
-    username: qrdvuwroxstnar
-    password: 5c6f824ab9cbf6fa02446db515321aa5245231da71b97db9bc7a25d3ec0be456
+    url: jdbc:postgresql://ec2-44-199-143-43.compute-1.amazonaws.com:5432/dfca4g4sge3l4f
+    username: aydaksvmsigcmz
+    password: 614e774c574406c63381f1874bcd990da5ccc92d825783ffcefb6147851b8468
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

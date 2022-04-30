@@ -14,4 +14,5 @@ public interface PlaygroundService extends BaseService<Playground,Long> {
     void approve(List<Long> list);
     void disable(List<Long> list);
     List<ListDto> getList();
+    AdminPanelCompanyDto getDetails(Long id);
 }
