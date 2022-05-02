@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/api/bron")
 @AllArgsConstructor
+@CrossOrigin
 public class BronController {
     private final BookingService bookingService;
 

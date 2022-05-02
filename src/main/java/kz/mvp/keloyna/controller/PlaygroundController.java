@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/api/playground")
 @AllArgsConstructor
+@CrossOrigin
 public class PlaygroundController {
     private final PlaygroundService playgroundService;
 

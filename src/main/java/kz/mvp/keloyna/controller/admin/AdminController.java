@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/api/admin")
 @AllArgsConstructor
+@CrossOrigin
 public class AdminController {
     private final PlaygroundService playgroundService;
 
