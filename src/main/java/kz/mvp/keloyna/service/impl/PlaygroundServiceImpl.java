@@ -2,6 +2,8 @@ package kz.mvp.keloyna.service.impl;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.Template;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import io.jsonwebtoken.lang.Strings;
 import kz.mvp.keloyna.dto.*;
@@ -16,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.beans.Expression;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -89,7 +92,6 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         QImage qImage = QImage.image;
         BooleanBuilder whereBuilder = new BooleanBuilder();
         JPAQuery<PlaygroundViewInListDto> jpaQuery = new JPAQuery<>(entityManager);
-        JPAQuery<PlaygroundViewInListDto> jpaQuery2 = new JPAQuery<>(entityManager);
         Optional.ofNullable(dto.getSportId()).filter(it -> it != 0).ifPresent(it -> whereBuilder.and(qPlayground.sportId.eq(it)));
         Optional.ofNullable(dto.getRoofType()).filter(Strings::hasText).ifPresent(it -> whereBuilder.and(qSpecification.roofType.eq(it)));
         Optional.ofNullable(dto.getToPrice()).ifPresent(it -> whereBuilder.and(qPlayground.price.lt(it)));
@@ -102,10 +104,14 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
                                 qPlayground.playgroundAddress,
                                 qPlayground.price,
                                 qSpecification.roofType,
-                                qComment.stars
+                                qImage.url,
+                                qComment.stars.sum()
                         )
                 ).from(qPlayground).leftJoin(qComment).on(qPlayground.id.eq(qComment.playground.id))
-                .where(whereBuilder);
+                .leftJoin(qImage).on(qPlayground.id.eq(qImage.playgroundId))
+//                .where(whereBuilder)
+                .groupBy(qComment.playground.id)
+                .having(whereBuilder);
 
         return jpaQuery.fetch();
     }

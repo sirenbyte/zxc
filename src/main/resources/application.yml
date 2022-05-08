@@ -1,7 +1,7 @@
 spring:
   liquibase:
     change-log: classpath:db/changelog/dbChangelog.xml
-    drop-first: true
+    drop-first: false
   datasource:
     url: jdbc:postgresql://ec2-3-229-11-55.compute-1.amazonaws.com:5432/dd1ce3v0hki91s
     username: ibcjdewathvznk
