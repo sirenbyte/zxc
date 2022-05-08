@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends BaseRepository<Booking, Long> {
 
-    @Query(value = "select * from booking where split_part(bron_date,':',1)::int>=TO_CHAR(now(), 'DD')::int",nativeQuery = true)
+    @Query(value = "select b from Booking b")
     List<Booking> getByPlaygroundId(Long id);
 }
