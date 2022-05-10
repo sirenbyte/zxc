@@ -42,13 +42,13 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
         playground.setCloseTime(dto.getCloseTime());
         playground.setStartTime(dto.getStartTime());
         playground.setCompanyId(dto.getCompanyId());
-        playground.setDescription(dto.getDescription());
         playground.setSportId(dto.getSportId());
         playground.setDescription(dto.getDescription());
         playground.setPhone(dto.getPhone());
         playground.setPrice(dto.getPrice());
         playground.setVisible(false);
         playground.setCreateDate(LocalDateTime.now());
+        playground.setSpecification(specificationService.save(dto.getSpecification()));
         save(playground);
     }
 

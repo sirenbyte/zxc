@@ -8,4 +8,6 @@
     <include file="/schema/26.04.2022.update.xml" relativeToChangelogFile="true"/>
     <include file="/data/23.02.2022.insert.sql" relativeToChangelogFile="true"/>
     <include file="/data/24.04.2022.insert.sql" relativeToChangelogFile="true"/>
+    <include file="/schema/10.05.2022.update.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

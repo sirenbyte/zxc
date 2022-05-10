@@ -33,7 +33,7 @@ public class BookingServiceImpl extends BaseServiceImpl<Booking, Long, BookingRe
 
     private List<BronDto> getListWithDate(Long id) {
         return getRepository().getByPlaygroundId(id).stream()
-                .map(it -> BronDto.builder().date(it.getBronDate()).time(it.getBronTime()).build())
+                .map(it -> BronDto.builder().date(it.getBronDate()).time(it.getBronTime()).userId(it.getUserId()).build())
                 .collect(Collectors.toList());
     }
 }

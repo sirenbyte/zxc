@@ -8,4 +8,5 @@ import lombok.Data;
 public class BronDto {
     private String date;
     private String time;
+    private Long userId;
 }

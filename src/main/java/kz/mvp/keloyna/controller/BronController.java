@@ -20,7 +20,7 @@ public class BronController {
     }
 
     @GetMapping("/getByPlayground/{id}")
-    public ResponseEntity<BookingDto> saveRequest(@PathVariable Long id){
+    public ResponseEntity<BookingDto> getBronsTime(@PathVariable Long id){
         return ResponseEntity.ok(bookingService.getRequests(id));
     }
 }

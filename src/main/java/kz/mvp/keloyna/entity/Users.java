@@ -32,4 +32,6 @@ public class Users implements IdentifiedId<Long> {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "company")
+    private Boolean company;
 }
