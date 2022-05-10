@@ -7,7 +7,7 @@
     </changeSet>
     <changeSet id="23132412" author="Abzal">
         <addColumn tableName="users">
-            <column>company</column>
+            <column name="company" type="boolean"/>
         </addColumn>
     </changeSet>
 
