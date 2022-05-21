@@ -104,14 +104,11 @@ public class PlaygroundServiceImpl extends BaseServiceImpl<Playground, Long, Pla
                                 qPlayground.playgroundAddress,
                                 qPlayground.price,
                                 qSpecification.roofType,
-                                qImage.url,
-                                qComment.stars.sum()
+                                qImage.url
                         )
                 ).from(qPlayground).leftJoin(qComment).on(qPlayground.id.eq(qComment.playground.id))
                 .leftJoin(qImage).on(qPlayground.id.eq(qImage.playgroundId))
-//                .where(whereBuilder)
-                .groupBy(qComment.playground.id)
-                .having(whereBuilder);
+                .where(whereBuilder);
 
         return jpaQuery.fetch();
     }

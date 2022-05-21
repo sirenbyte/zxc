@@ -4,7 +4,6 @@ import kz.mvp.keloyna.dto.PlaygroundDto;
 import kz.mvp.keloyna.dto.PlaygroundFilterDto;
 import kz.mvp.keloyna.dto.PlaygroundUpdateDto;
 import kz.mvp.keloyna.dto.PlaygroundViewInListDto;
-import kz.mvp.keloyna.entity.Company;
 import kz.mvp.keloyna.entity.Playground;
 import kz.mvp.keloyna.service.api.PlaygroundService;
 import lombok.AllArgsConstructor;
@@ -17,17 +16,20 @@ import java.util.List;
 @RequestMapping("/v1/api/playground")
 @AllArgsConstructor
 @CrossOrigin
-public class PlaygroundController {
+public class
+
+
+PlaygroundController {
     private final PlaygroundService playgroundService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> create(@RequestBody PlaygroundDto playgroundDto){
+    public ResponseEntity<Void> create(@RequestBody PlaygroundDto playgroundDto) {
         playgroundService.savePlayground(playgroundDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePlayground(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deletePlayground(@PathVariable("id") Long id) {
         playgroundService.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -49,7 +51,7 @@ public class PlaygroundController {
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<List<PlaygroundViewInListDto>> filter(@RequestBody PlaygroundFilterDto dto){
+    public ResponseEntity<List<PlaygroundViewInListDto>> filter(@RequestBody PlaygroundFilterDto dto) {
         return ResponseEntity.ok(playgroundService.filter(dto));
     }
 
